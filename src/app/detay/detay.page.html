@@ -1,0 +1,14 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>detay</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button text="Geri"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item *ngIf="sayfavalue">
+    <ion-label>Diğer Sayfadan Gelen: {{sayfavalue.ad}} {{sayfavalue.soyad}} </ion-label>
+    </ion-item>
+</ion-content>
