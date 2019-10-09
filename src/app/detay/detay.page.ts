@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-detay',
@@ -8,15 +8,15 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class DetayPage implements OnInit {
 
-  public getValue;
+  degisken: string;
 
   constructor(private router: ActivatedRoute) { }
 
   ngOnInit() {
 
-    this.getValue = this.router.snapshot.paramMap.get('deger');
-    console.log(JSON.parse(this.getValue));
+    this.degisken = this.router.snapshot.paramMap.get('deger');
 
+    console.log('Diğer sayfadan gelen değer: ' + this.router.snapshot.paramMap.get('deger'));
 
   }
 

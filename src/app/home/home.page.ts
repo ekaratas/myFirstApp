@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { ToastController } from '@ionic/angular';
 import { AlertController } from '@ionic/angular';
-
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -10,23 +10,24 @@ import { AlertController } from '@ionic/angular';
 })
 export class HomePage {
 
-  userData = { ad: '', soyad: ''};
+  public ad: string = 'Erinç';
+  public soyad: string;
 
-  public mesaj: string = 'Ana Sayfa';
+  constructor(private router: Router, private toastController: ToastController,  private alertController: AlertController) {}
 
-  constructor(private router: Router, private alertController: AlertController) {}
+
+  git() {
+    this.router.navigate(['/detay', {deger: this.ad}]);
+
+    //this.router.navigateByUrl('/detay');
+  }
 
   tamam() {
 
-    this.mesaj = 'Merhaba ' + this.userData.ad + '' + this.userData.soyad;
-    console.log('Merhaba ' + this.userData.ad + '' + this.userData.soyad);
-   // this.router.navigate(['/detay']);
-    this.router.navigate(['/detay', {deger: JSON.stringify(this.userData)}]);
-    //this.router.navigateByUrl('/detay');
-
+    console.log('Merhaba ' + this.ad + ' ' + this.soyad );
   }
 
-  async presentAlertPrompt() {
+  async uyariGoster() {
     const alert = await this.alertController.create({
       header: 'Prompt!',
       inputs: [
@@ -42,34 +43,6 @@ export class HomePage {
           value: 'hello',
           placeholder: 'Placeholder 2'
         },
-        {
-          name: 'name3',
-          value: 'http://ionicframework.com',
-          type: 'url',
-          placeholder: 'Favorite site ever'
-        },
-        // input date with min & max
-        {
-          name: 'name4',
-          type: 'date',
-          min: '2017-03-01',
-          max: '2018-01-12'
-        },
-        // input date without min nor max
-        {
-          name: 'name5',
-          type: 'date'
-        },
-        {
-          name: 'name6',
-          type: 'number',
-          min: -5,
-          max: 10
-        },
-        {
-          name: 'name7',
-          type: 'number'
-        }
       ],
       buttons: [
         {
@@ -81,16 +54,35 @@ export class HomePage {
           }
         }, {
           text: 'Ok',
-          handler: data => {
-            console.log('Confirm Ok Name1 value = ' + data.name1 );
+          handler: degisken => {
+            //console.log('yazdığınız değer : ' + degisken.name1);
+            this.mesajGoster(degisken.name1);
           }
         }
       ]
     });
 
     await alert.present();
+
   }
 
+  async mesajGoster(deger) {
+    const toast = await this.toastController.create({
+      message: deger,
+      position: 'top',
+      buttons: [
+         {
+          side: 'start',
+          text: 'Done',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        }
+      ]
+    });
+    toast.present();
+  }
 
 
 }

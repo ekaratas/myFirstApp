@@ -1,34 +1,35 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>
-Ana Sayfa
+    <ion-title *ngIf="!ad">
+      Ana Sayfa
+    </ion-title>
+    <ion-title *ngIf="ad"> 
+      Merhaba, {{ad}} {{soyad}}
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
+  <ion-item>
+    <ion-label>Ad</ion-label>
+    <ion-input placeholder="Adınızı Giriniz" [(ngModel)]="ad"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">Soyad</ion-label>
+    <ion-input [(ngModel)]="soyad"></ion-input>
+  </ion-item>
 
-<ion-item>
-  <ion-label position="floating">Adınız</ion-label>
-  <ion-input [(ngModel)]="userData.ad"></ion-input>
-</ion-item>
+  <br>
 
-<ion-item>
-  <ion-label position="floating">Soyadınız</ion-label>
-  <ion-input [(ngModel)]="userData.soyad"></ion-input>
-</ion-item>
+  <ion-button expand="block" color="secondary" (click)="mesajGoster()">Tamam</ion-button>
 
+  <ion-button expand="block" color="danger" (click)="uyariGoster()">Uyarı</ion-button>
 
+  <ion-button [routerLink]="['/detay']">Detay Sayfasına git</ion-button>
 
-<br>
+  <ion-button (click)="git()">Detay Sayfasına git kod ile gitsin</ion-button>
 
-<ion-button expand="block" color="secondary" (click)="tamam()">Tamam</ion-button>
-
-<ion-button [routerLink]="['/detay']">Go to detail</ion-button>
-
-<ion-button (click)="presentAlertPrompt()">Kaydet</ion-button>
-
-
-<br>
+  <br>
+  <ion-label *ngIf="ad" position="fixed">Merhaba, {{ad}} {{soyad}}</ion-label>
 
 </ion-content>
